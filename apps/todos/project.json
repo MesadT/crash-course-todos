@@ -2,7 +2,7 @@
   "projectType": "application",
   "root": "apps/todos",
   "sourceRoot": "apps/todos/src",
-  "prefix": "crash-course-todo",
+  "prefix": "cct",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",

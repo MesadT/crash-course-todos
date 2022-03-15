@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { Todo } from '../todo';
 
 @Component({
-  selector: 'app-todo-input',
+  selector: 'cct-todo-input',
   template: `
     <input
       type="text"

@@ -13,7 +13,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "crashCourseTodo",
+            "prefix": "cct",
             "style": "camelCase"
           }
         ],
@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "crash-course-todo",
+            "prefix": "cct",
             "style": "kebab-case"
           }
         ]

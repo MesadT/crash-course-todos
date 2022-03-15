@@ -10,7 +10,7 @@ import {
 import { Todo } from './todo';
 
 @Component({
-  selector: 'my-app',
+  selector: 'cct-root',
   template: `
     <h1>Todo List</h1>
     <input
@@ -28,14 +28,14 @@ import { Todo } from './todo';
     </label>
     <br />
     <br />
-    <app-todo-item
+    <cct-todo-item
       *ngFor="let todo of (displayTodos$ | async)"
       [todo]="todo"
       (resolveTodo)="onResolve(todo, $event)"
       (deleteTodo)="onDelete(todo)"
-    ></app-todo-item>
+    ></cct-todo-item>
     <br />
-    <app-todo-input (createTodo)="onCreate($event)"></app-todo-input>
+    <cct-todo-input (createTodo)="onCreate($event)"></cct-todo-input>
   `,
   styles: [],
 })

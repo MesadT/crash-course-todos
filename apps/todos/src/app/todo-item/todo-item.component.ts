@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Todo } from '../todo';
 
 @Component({
-  selector: 'app-todo-item',
+  selector: 'cct-todo-item',
   template: `
     <label>
       <input #input type="checkbox" [checked]="todo.done" (change)="onResolve(input.checked)" />
@@ -20,7 +20,7 @@ import { Todo } from '../todo';
 })
 export class TodoItemComponent {
   @Input()
-  public todo: Todo;
+  public todo!: Todo;
 
   @Output()
   public readonly resolveTodo = new EventEmitter<boolean>();
