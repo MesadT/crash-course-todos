@@ -1,14 +1,30 @@
-
-
 # CrashCourseTodos
 
 This project was generated using [Nx](https://nx.dev).
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+## Getting Started
 
-🔎 **Smart, Fast and Extensible Build System**
+0. Install dependencies: `npm install`
 
-## Quick Start & Documentation
+1. Create db.json file
+```
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "organize your tasks"
+    }
+  ]
+}
+```
+
+2. Start Api: `npm run db`
+
+3. Start Frontend: `npm run start`
+
+> Run scripts are defined in package.json
+
+## Documentation
 
 [Nx Documentation](https://nx.dev/angular)
 
@@ -103,3 +119,5 @@ Nx Cloud pairs with Nx in order to enable you to build and test code more rapidl
 Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
 
 Visit [Nx Cloud](https://nx.app/) to learn more.
+
+
