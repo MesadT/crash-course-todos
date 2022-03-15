@@ -8,6 +8,7 @@ import {
   startWith,
 } from 'rxjs';
 import { Todo } from './todo';
+import {TodosService} from "./todos.service";
 
 @Component({
   selector: 'cct-root',
@@ -18,7 +19,7 @@ import { Todo } from './todo';
       placeholder="Suchen..."
       [formControl]="searchTerm"
     />
-    <br />
+    <br/>
     <label>
       <input
         type="checkbox"
@@ -26,27 +27,20 @@ import { Todo } from './todo';
       />
       Erledigte Todos anzeigen
     </label>
-    <br />
-    <br />
+    <br/>
+    <br/>
     <cct-todo-item
-      *ngFor="let todo of (displayTodos$ | async)"
+      *ngFor="let todo of (todos$ | async)"
       [todo]="todo"
       (resolveTodo)="onResolve(todo, $event)"
       (deleteTodo)="onDelete(todo)"
     ></cct-todo-item>
-    <br />
+    <br/>
     <cct-todo-input (createTodo)="onCreate($event)"></cct-todo-input>
   `,
   styles: [],
 })
 export class AppComponent {
-  private static nextId = 0;
-  private readonly todos$ = new BehaviorSubject<Todo[]>([
-    { id: AppComponent.nextId++, title: 'Mittagessen', done: true },
-    { id: AppComponent.nextId++, title: 'Tutorial beenden' },
-    { id: AppComponent.nextId++, title: 'Feierabend' },
-  ]);
-
   public readonly searchTerm = new FormControl('');
   private readonly searchTerm$ = this.searchTerm.valueChanges.pipe(
     startWith(this.searchTerm.value),
@@ -58,10 +52,10 @@ export class AppComponent {
     startWith(this.showDone.value)
   );
 
-  public readonly displayTodos$: Observable<Todo[]> = combineLatest([
-    this.todos$,
+  public readonly todos$: Observable<Todo[]> = combineLatest([
+    this.todoService.todos$,
     this.showDone$,
-    this.searchTerm$,
+    this.searchTerm$
   ]).pipe(
     map(([todos, showDone, searchTerm]) => {
       let _todos = todos;
@@ -80,26 +74,19 @@ export class AppComponent {
     })
   );
 
+  constructor(private readonly todoService: TodosService) {
+
+  }
+
   public onCreate(todo: Omit<Todo, 'id'>) {
-    const todos = this.todos$.getValue();
-    todos.push({ id: AppComponent.nextId++, ...todo });
-    this.todos$.next(todos);
+  this.todoService.create(todo)
   }
 
   public onResolve(todo: Todo, isDone: boolean) {
-    let todos = this.todos$.getValue();
-    todos = todos.map((_todo) => {
-      if (_todo.id === todo.id) {
-        return { ...todo, done: isDone };
-      }
-      return _todo;
-    });
-    this.todos$.next(todos);
+   this.todoService.markAsDone(todo, isDone)
   }
 
   public onDelete(todo: Todo) {
-    let todos = this.todos$.getValue();
-    todos = todos.filter((_todo) => _todo.id !== todo.id);
-    this.todos$.next(todos);
+    this.todoService.delete(todo)
   }
 }
